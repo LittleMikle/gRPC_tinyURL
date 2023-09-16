@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option go_package = "./proto";
+
+package url_service;
+
+service URLservise {
+    rpc CreateURL(FullURLRequest) returns (TinyURLResponse);
+    rpc GetURL(TinyURLRequest) returns (FullURLResponse);
+}
+
+message FullURLRequest {
+    string fullURL = 1;
+}
+
+message TinyURLResponse {
+    string tinyURL = 1;
+}
+
+message TinyURLRequest {
+    string tinyURl = 1;
+}
+
+message FullURLResponse {
+    string fullURL = 1;
+}
