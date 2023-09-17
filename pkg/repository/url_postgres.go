@@ -28,7 +28,6 @@ func (r *URLPostgres) CreateURL(ctx context.Context, url tiny.URL) (string, erro
 }
 
 func (r *URLPostgres) GetURL(ctx context.Context, tinyURL string) (string, error) {
-	fmt.Println(tinyURL)
 	var fullURL string
 	query := fmt.Sprintf("SELECT fullurl FROM urls WHERE tinyurl=$1")
 	if err := r.db.Get(&fullURL, query, tinyURL); err != nil {

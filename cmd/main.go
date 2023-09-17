@@ -47,12 +47,11 @@ func main() {
 		log.Info().Msg("Connection to Postgres successful")
 	}
 
-	s := grpc.NewServer()
-
 	repo := repository.NewRepository(db)
 	serviceURL := service.NewService(repo)
 	handlersURL := handlers.NewURL(serviceURL)
 
+	s := grpc.NewServer()
 	proto.RegisterURLserviseServer(s, handlersURL)
 
 	lis, err := net.Listen("tcp", port)
