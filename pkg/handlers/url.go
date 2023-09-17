@@ -19,3 +19,13 @@ func (i *Implementation) CreateURL(ctx context.Context, request *proto.FullURLRe
 		TinyURL: token,
 	}, nil
 }
+
+func (i *Implementation) GetURL(ctx context.Context, request *proto.TinyURLRequest) (*proto.FullURLResponse, error) {
+	fullURL, err := i.urlService.GetURL(ctx, request.TinyURL)
+	if err != nil {
+		return nil, err
+	}
+	return &proto.FullURLResponse{
+		FullURL: fullURL,
+	}, nil
+}

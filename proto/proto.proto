@@ -18,7 +18,7 @@ message TinyURLResponse {
 }
 
 message TinyURLRequest {
-    string tinyURl = 1;
+    string tinyURL = 1;
 }
 
 message FullURLResponse {

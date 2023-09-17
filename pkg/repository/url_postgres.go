@@ -18,7 +18,7 @@ func NewURLPostgres(db *sqlx.DB) *URLPostgres {
 }
 
 func (r *URLPostgres) CreateURL(ctx context.Context, url tiny.URL) (string, error) {
-	query := fmt.Sprintf("INSERT INTO urls (fullURL, tinyURL) values ($1, $2) RETURNING tinyURL")
+	query := fmt.Sprintf("INSERT INTO urls (fullurl, tinyurl) values ($1, $2) RETURNING tinyurl")
 	row := r.db.QueryRow(query, url.FullURL, url.TinyURL)
 	err := row.Scan(&url.TinyURL)
 	if err != nil {
@@ -28,5 +28,11 @@ func (r *URLPostgres) CreateURL(ctx context.Context, url tiny.URL) (string, erro
 }
 
 func (r *URLPostgres) GetURL(ctx context.Context, tinyURL string) (string, error) {
-	return "", nil
+	fmt.Println(tinyURL)
+	var fullURL string
+	query := fmt.Sprintf("SELECT fullurl FROM urls WHERE tinyurl=$1")
+	if err := r.db.Get(&fullURL, query, tinyURL); err != nil {
+		return "", err
+	}
+	return fullURL, nil
 }
